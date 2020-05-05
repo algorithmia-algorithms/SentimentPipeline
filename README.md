@@ -2,7 +2,7 @@
 This is a new version of [AlgorithmiaSE/SentimentPipe](https://algorithmia.com/algorithms/AlgorithmiaSE/SentimentPipe) that is backed by github and
  leverages github actions to facilitate CI/CD code management best practices.
 
-Curious as to how we define the github CI integration? Click [here.]()
+Curious as to how we define the github CI integration? Click [here.](https://github.com/algorithmia-algorithms/SentimentPipeline/blob/master/.github/workflows/main.yml)
 
 ## Overview
 
