@@ -24,7 +24,7 @@ Specify a path you with to process files in a directory, the output for each fil
 
 ### Input
 
-There is only one input to pass, a string containing some URL, be it from the Data API or the URL to a file on the internet.
+There is only one input to pass, a string containing some URL to a algorithmia [data collection](https://algorithmia.com/data), or a group of files; either hosted on Algorithmia or publicly accessable on the internet.
 
 | Parameter | Description |
 | --------- | ----------- |
@@ -41,6 +41,7 @@ The output is JSON containing the average sentiment for each file processed.
 
 ## Examples
 
+### Example 1
 Example input:
 ```
 "data://AlgorithmiaSE/sentiment_pipe"
@@ -57,3 +58,19 @@ Example Ouput:
 }
 ```
 
+### Example 2
+Example input:
+```
+["data://AlgorithmiaSE/sentiment_pipe/like.pdf", "data://AlgorithimiaSE/sentiment_pipe/like.txt"]
+```
+Example Ouput:
+```
+{
+  "data://AlgorithmiaSE/sentiment_pipe/like.pdf": {
+    "average sentiment": 0.474
+  },
+  "data://AlgorithmiaSE/sentiment_pipe/like.txt": {
+    "average sentiment": 0.474
+  }
+}
+```
