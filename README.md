@@ -1,5 +1,4 @@
 # SentimentPipeline
-Source for https://algorithmia.com/algorithms/AlgorithmiaSE/SentimentPipeline
 This is a new version of [AlgorithmiaSE/SentimentPipe](https://algorithmia.com/algorithms/AlgorithmiaSE/SentimentPipe) that is backed by github and
  leverages github actions to facilitate CI/CD code management best practices.
 
