@@ -41,7 +41,7 @@ The output is JSON containing the average sentiment for each file processed.
 
 ## Examples
 
-### Example 1
+### Example 1 - data collection
 Example input:
 ```
 "data://AlgorithmiaSE/sentiment_pipe"
@@ -58,7 +58,7 @@ Example Ouput:
 }
 ```
 
-### Example 2
+### Example 2 - list of data files
 Example input:
 ```
 ["data://AlgorithmiaSE/sentiment_pipe/like.pdf", "data://AlgorithimiaSE/sentiment_pipe/like.txt"]
