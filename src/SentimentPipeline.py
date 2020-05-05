@@ -3,21 +3,34 @@ import Algorithmia
 
 # API calls will begin at the apply() method, with the request body passed as 'input'
 # For more details, see algorithmia.com/developers/algorithm-development/languages
-def apply(path):
+def apply(input):
     output = {}
     client = Algorithmia.client()
-    if client.dir(path).exists():
-        for file in client.dir(path).files():
-            # extract text from image using OCR
-            body = client.algo("util/ExtractText/0.1.1").pipe("data://" + file.path).result
-            body = body.rstrip("\n")
+    # check that the input type is of a valid type
+    if isinstance(input, str):
+        if client.dir(input).exists():
+            # lets get all of the data API URIs for each file in the provided directory
+            files = [file.path for file in client.dir(input).files()]
+        else:
+            raise Exception(
+                "input {} is not a valid data API input, or you don't have permission to access it".format(input))
+    elif isinstance(input, list):
+        # if the input a list of data URIs, lets skip directory scanning and process each URI normally
+        files = input
+    else:
+        raise Exception("input must be of type str or list, found {}".format(str(type(input))))
 
-            # determine language of text
-            lang = client.algo("nlp/LanguageIdentification/1.0.0").pipe({"sentence": body}).result
+    for file in files:
+        # extract text from image using OCR
+        body = client.algo("util/ExtractText/0.1.1").pipe("data://" + file).result
+        body = body.rstrip("\n")
 
-            # translate non-English text
-            if lang != 'en':
-                input = {"action": "translate", "text": body}
+        # determine language of text
+        lang = client.algo("nlp/LanguageIdentification/1.0.0").pipe({"sentence": body}).result
+
+        # translate non-English text
+        if lang != 'en':
+            input = {"action": "translate", "text": body}
                 body = client.algo("translation/GoogleTranslate/0.1.1").pipe(input).result["translation"]
 
             # Tokenize text for analysis by sentence
@@ -34,8 +47,6 @@ def apply(path):
 
             # record output
             output["data://" + file.path] = {"average sentiment": avg_sent}
-    else:
-        raise Exception("input {} is not a valid data API path, or you don't have permission to access it".format(path))
 
     return output
 
