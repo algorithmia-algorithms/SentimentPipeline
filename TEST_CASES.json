@@ -1,7 +1,22 @@
 [
   {
-    "case_name": "Sentiment Pipelining",
+    "case_name": "directory processing",
     "input": "data://AlgorithmiaSE/sentiment_pipe",
+    "expected_output": {
+      "data://AlgorithmiaSE/sentiment_pipe/like.pdf": {
+        "average sentiment": 0.474
+      },
+      "data://AlgorithmiaSE/sentiment_pipe/like.txt": {
+        "average sentiment": 0.474
+      }
+    }
+  },
+  {
+    "case_name": "direct file processing",
+    "input": [
+      "data://AlgorithmiaSE/sentiment_pipe/like.pdf",
+      "data://AlgorithmiaSE/sentiment_pipe/like.txt"
+    ],
     "expected_output": {
       "data://AlgorithmiaSE/sentiment_pipe/like.pdf": {
         "average sentiment": 0.474
