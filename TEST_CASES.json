@@ -1,0 +1,14 @@
+[
+  {
+    "case_name": "Sentiment Pipelining",
+    "input": "data://AlgorithmiaSE/sentiment_pipe",
+    "expected_output": {
+      "data://AlgorithmiaSE/sentiment_pipe/like.pdf": {
+        "average sentiment": 0.474
+      },
+      "data://AlgorithmiaSE/sentiment_pipe/like.txt": {
+        "average sentiment": 0.474
+      }
+    }
+  }
+]
