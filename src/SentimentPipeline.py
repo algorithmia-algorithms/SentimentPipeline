@@ -31,22 +31,22 @@ def apply(input):
         # translate non-English text
         if lang != 'en':
             input = {"action": "translate", "text": body}
-                body = client.algo("translation/GoogleTranslate/0.1.1").pipe(input).result["translation"]
+            body = client.algo("translation/GoogleTranslate/0.1.1").pipe(input).result["translation"]
 
-            # Tokenize text for analysis by sentence
-            token_body = client.algo("ApacheOpenNLP/SentenceDetection/0.1.0").pipe(body).result
+        # Tokenize text for analysis by sentence
+        token_body = client.algo("ApacheOpenNLP/SentenceDetection/0.1.0").pipe(body).result
 
-            # determine sentiment of tokenized text
-            keyword_sentiment = []
-            for token in token_body:
-                print("data://" + file.path + " -> " + token)
-                sent = client.algo("nlp/SentimentAnalysis/1.0.5").pipe({"document": token}).result[0]["sentiment"]
-                keyword_sentiment.append(sent)
+        # determine sentiment of tokenized text
+        keyword_sentiment = []
+        for token in token_body:
+            print("data://" + file.path + " -> " + token)
+            sent = client.algo("nlp/SentimentAnalysis/1.0.5").pipe({"document": token}).result[0]["sentiment"]
+            keyword_sentiment.append(sent)
 
-            avg_sent = sum(keyword_sentiment) / len(keyword_sentiment)
+        avg_sent = sum(keyword_sentiment) / len(keyword_sentiment)
 
-            # record output
-            output["data://" + file.path] = {"average sentiment": avg_sent}
+        # record output
+        output["data://" + file.path] = {"average sentiment": avg_sent}
 
     return output
 
