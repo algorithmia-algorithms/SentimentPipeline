@@ -10,7 +10,7 @@ def apply(input):
     if isinstance(input, str):
         if client.dir(input).exists():
             # lets get all of the data API URIs for each file in the provided directory
-            files = [file.path for file in client.dir(input).files()]
+            files = [file.url for file in client.dir(input).files()]
         else:
             raise Exception(
                 "input {} is not a valid data API input, or you don't have permission to access it".format(input))
@@ -20,9 +20,9 @@ def apply(input):
     else:
         raise Exception("input must be of type str or list, found {}".format(str(type(input))))
 
-    for file in files:
+    for url in files:
         # extract text from image using OCR
-        body = client.algo("util/ExtractText/0.1.1").pipe("data://" + file).result
+        body = client.algo("util/ExtractText/0.1.1").pipe(url).result
         body = body.rstrip("\n")
 
         # determine language of text
@@ -39,14 +39,14 @@ def apply(input):
         # determine sentiment of tokenized text
         keyword_sentiment = []
         for token in token_body:
-            print("data://" + file.path + " -> " + token)
+            print(url + " -> " + token)
             sent = client.algo("nlp/SentimentAnalysis/1.0.5").pipe({"document": token}).result[0]["sentiment"]
             keyword_sentiment.append(sent)
 
         avg_sent = sum(keyword_sentiment) / len(keyword_sentiment)
 
         # record output
-        output["data://" + file.path] = {"average sentiment": avg_sent}
+        output[url] = {"average sentiment": avg_sent}
 
     return output
 
