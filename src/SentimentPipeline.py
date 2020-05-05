@@ -14,9 +14,9 @@ def apply(input):
         else:
             raise Exception(
                 "input {} is not a valid data API input, or you don't have permission to access it".format(input))
-    # elif isinstance(input, list):
-    #     # if the input a list of data URIs, lets skip directory scanning and process each URI normally
-    #     files = input
+    elif isinstance(input, list):
+        # if the input a list of data URIs, lets skip directory scanning and process each URI normally
+        files = input
     else:
         raise Exception("input must be of type str or list, found {}".format(str(type(input))))
 
