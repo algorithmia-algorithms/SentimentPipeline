@@ -10,7 +10,7 @@ def apply(input):
     if isinstance(input, str):
         if client.dir(input).exists():
             # lets get all of the data API URIs for each file in the provided directory
-            files = [file.url for file in client.dir(input).files()]
+            files = ["data://" + file.path for file in client.dir(input).files()]
         else:
             raise Exception(
                 "input {} is not a valid data API input, or you don't have permission to access it".format(input))
@@ -50,4 +50,7 @@ def apply(input):
 
     return output
 
-# "data://AlgorithmiaSE/sentiment_pipe"
+
+if __name__ == "__main__":
+    input = "data://AlgorithmiaSE/sentiment_pipe"
+    apply(input)
