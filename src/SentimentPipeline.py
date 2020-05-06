@@ -12,8 +12,7 @@ def apply(input):
             # lets get all of the data API URIs for each file in the provided directory
             files = ["data://" + file.path for file in client.dir(input).files()]
         else:
-            raise Exception(
-                "input {} is not a valid data API input, or you don't have permission to access it".format(input))
+            raise Exception("input {} is not a valid data API input, or you don't have permission to access it".format(input))
     # elif isinstance(input, list):
     #     # if the input a list of data URIs, lets skip directory scanning and process each URI normally
     #     files = input
@@ -49,6 +48,8 @@ def apply(input):
         output[url] = {"average sentiment": avg_sent}
 
     return output
+
+#Hey team!
 
 if __name__ == "__main__":
     input = "data://AlgorithmiaSE/sentiment_pipe"
