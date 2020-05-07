@@ -13,9 +13,9 @@ def apply(input):
             files = ["data://" + file.path for file in client.dir(input).files()]
         else:
             raise Exception("input {} is not a valid data API input, or you don't have permission to access it".format(input))
-    # elif isinstance(input, list):
-    #     # if the input a list of data URIs, lets skip directory scanning and process each URI normally
-    #     files = input
+    elif isinstance(input, list):
+        # if the input a list of data URIs, lets skip directory scanning and process each URI normally
+        files = input
     else:
         raise Exception("input type incorrect, found {}".format(str(type(input))))
 
